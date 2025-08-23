@@ -1,6 +1,6 @@
 import socket  # noqa: F401
 
-import httplib
+from . import httplib
 
 
 def listen(host: str, port: int) -> tuple[socket.socket, str]:

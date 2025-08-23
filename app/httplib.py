@@ -11,13 +11,21 @@ class Request:
     http_version: str
     headers: dict[str, str]
 
+class InvalidRequest(Exception):
+    pass
+
 
 def send_request(messages: list[str], n_crlf = 2) -> bytes:
     message = HTTP_VERSION + ' ' + CRLF.join(messages) + (CRLF * n_crlf)
     return message.encode(TEXT_ENCODING)
 
 def read_request(content: bytes) -> Request:
-    lines = content.decode(TEXT_ENCODING).split(CRLF)
+    sections = content.decode(TEXT_ENCODING).split(CRLF+CRLF)
+    lines = [line for section in sections for line in section.split(CRLF)]
+
+    if not lines:
+        raise InvalidRequest("No content to decode in request")
+
     first_line = lines[0].split(' ')
 
     method, target, http_version = first_line[:3]
