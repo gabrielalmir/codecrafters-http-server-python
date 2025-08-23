@@ -1,4 +1,3 @@
-import platform
 import socket  # noqa: F401
 
 TEXT_ENCODING = 'utf-8'
@@ -35,7 +34,9 @@ def route(client: socket.socket, target: str) -> int:
     return client.send(send_request(['404 Not Found']))
 
 def main():
-    server_socket = socket.create_server(("localhost", 4221), reuse_port=platform.system() != 'Windows')
+    print("Server listing at localhost:4221")
+
+    server_socket = socket.create_server(("localhost", 4221))
     client, address = server_socket.accept() # wait for client
     request_data = client.recv(1024)
 
