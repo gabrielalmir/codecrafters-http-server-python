@@ -1,3 +1,4 @@
+import platform
 import socket  # noqa: F401
 
 
@@ -7,8 +8,11 @@ def main():
 
     # Uncomment this to pass the first stage
     #
-    server_socket = socket.create_server(("localhost", 4221), reuse_port=True)
-    server_socket.accept() # wait for client
+    server_socket = socket.create_server(("localhost", 4221), reuse_port=platform.system() != 'Windows')
+
+    sockt, address = server_socket.accept() # wait for client
+    sockt.send(b'HTTP/1.1 200 OK\r\n\r\n')
+    print(f'Connection accepted from {address}')
 
 
 if __name__ == "__main__":
