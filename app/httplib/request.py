@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from constants import CRLF, TEXT_ENCODING
-from errors import InvalidRequest
+from .constants import CRLF, TEXT_ENCODING
+from .errors import InvalidRequest
 
 
 @dataclass(frozen=True)
@@ -29,3 +29,4 @@ class Request:
             headers[key] = value
 
         return Request(method, target, http_version, headers)
+

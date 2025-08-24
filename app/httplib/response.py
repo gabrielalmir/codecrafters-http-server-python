@@ -1,4 +1,4 @@
-from constants import CRLF, HTTP_VERSION, TEXT_ENCODING
+from .constants import CRLF, HTTP_VERSION, TEXT_ENCODING
 
 
 class Response:
