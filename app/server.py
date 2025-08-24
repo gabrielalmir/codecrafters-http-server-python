@@ -1,5 +1,6 @@
 import socket  # noqa: F401
 
+from .httplib.path import Path
 from .httplib.request import Request
 from .httplib.response import Response
 
@@ -14,5 +15,7 @@ def parse_request(client: socket.socket):
 
 def route(client: socket.socket, target: str) -> int:
     if target == '/':
+        return client.send(Response.send_request(['200 OK']))
+    elif Path.matches('/echo/{str}', target):
         return client.send(Response.send_request(['200 OK']))
     return client.send(Response.send_request(['404 Not Found']))
