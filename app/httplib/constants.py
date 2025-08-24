@@ -1,0 +1,3 @@
+TEXT_ENCODING = 'utf-8'
+CRLF = '\r\n'
+HTTP_VERSION = 'HTTP/1.1'
